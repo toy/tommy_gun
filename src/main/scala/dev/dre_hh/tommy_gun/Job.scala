@@ -53,13 +53,13 @@ object Job {
       case _ => None
     })
 
-    val result = arms.groupByKey(message => s"${message.issue}_${message.name}")
+    val result = arms.groupByKey(arm => s"${arm.issue}_${arm.name}")
       .reduceGroups((acc, arm) => {
-        val alpha = math.max(1,acc.alpha + arm.alpha)
+        val alpha = math.max(1, acc.alpha + arm.alpha)
         val beta =  math.max(1, acc.beta + arm.beta)
         val score = new Beta(alpha, beta).draw
 
-        Arm(arm.issue, arm.name, alpha, beta, score)
+        arm.copy(alpha=alpha, beta=beta, score=score)
       })
 
     val query = result.writeStream
