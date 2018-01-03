@@ -47,9 +47,9 @@ object Job {
 
     val arms = messages.flatMap(message => message.action match {
         //increment beta if arm drawn
-      case "draw" => Option(Arm(message.issue, message.arm, 0, 1, 0))
+      case "draw" => Some(Arm(message.issue, message.arm, 0, 1, 0))
         //increment alpha (and decrement beta) if arm rewarded
-      case "reward" => Option(Arm(message.issue, message.arm, 1, -1, 0))
+      case "reward" => Some(Arm(message.issue, message.arm, 1, -1, 0))
       case _ => None
     })
 

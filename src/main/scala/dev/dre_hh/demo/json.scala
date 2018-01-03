@@ -1,6 +1,8 @@
-import org.apache.spark.sql.{DataFrame, Dataset, Row, SparkSession}
+package dev.dre_hh.demo
+
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions._
-import org.apache.spark.sql.types.{StringType, StructType, TimestampType}
+import org.apache.spark.sql.types.{StringType, StructType}
 
 case class Message(action: String, issue: String, arm: String)
 case class Arm(issue:String, name: String, alpha: Int, beta: Int, score: Double)
