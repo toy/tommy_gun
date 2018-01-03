@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  zookeeper:
+    image: antlypls/zookeeper
+
+  kafka:
+    image: antlypls/kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_CREATE_TOPICS: "events:1:1"
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  spark:
+    image: tkl93/tommy_gun
+    command: bash
+    ports:
+      - "4040:4040"
+    volumes:
+      - .:/tommy_gun
+    depends_on:
+      - zookeeper
+      - kafka
